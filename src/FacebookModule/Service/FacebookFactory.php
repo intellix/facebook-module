@@ -1,16 +1,25 @@
 <?php
 namespace FacebookModule\Service;
 
-class FacebookFactory extends AbstractFactory {
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-	/* (non-PHPdoc)
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 */
-	public function createService(\Zend\ServiceManager\ServiceLocatorInterface $sl) {
-	    
-	    $options = $this->getOpitons($sl, 'facebook');
-	    $facebook = new \Facebook($options);
-	    
-	    return $facebook;
+class FacebookFactory implements FactoryInterface
+{
+    /**
+     * @param ServiceLocatorInterface $sl
+     * @return \Facebook
+     */
+    public function createService(ServiceLocatorInterface $sl)
+    {
+        $config = $sl->get('Config');
+
+        if (!isset($config['facebook'])) {
+            throw new Exception\RuntimeException(
+                'The facebook configuration [\'facebook\'] is missing'
+            );
+        }
+
+	    return new \Facebook($config['facebook']);
 	}
 }

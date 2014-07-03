@@ -8,10 +8,10 @@ return array(
     ),
     'service_manager' => array(
         'aliases' => array(
-    	    'FacebookModule\Service\FacebookFactory' => 'facebook'
+            'FacebookModule\Service\FacebookFactory' => 'facebook'
         ),
         'factories' => array(
-        	'facebook' => new \FacebookModule\Service\FacebookFactory('facebook')
+            'facebook' => 'FacebookModule\Service\FacebookFactory'
         )
     ),
 );

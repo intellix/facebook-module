@@ -15,17 +15,20 @@ use Zend\Mvc\MvcEvent;
 
 class Module
 {
-    public function getConfig()
+    /**
+     * Retrieve autoloader configuration
+     *
+     * @return array
+     */
+    public function getAutoloaderConfig()
     {
-        return include __DIR__ . '\../../config/module.config.php';
+        return array('Zend\Loader\StandardAutoloader' => array('namespaces' => array(
+            __NAMESPACE__ => __DIR__ . '/src/',
+        )));
     }
 
-    public function onBootstrap(MvcEvent $e)
+    public function getConfig()
     {
-        // You may not need to do this if you're doing it elsewhere in your
-        // application
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        return include __DIR__ . '/../../config/module.config.php';
     }
 }
