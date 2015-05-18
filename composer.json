@@ -26,6 +26,5 @@
             "FacebookModule\\": "/src",
             "FacebookModuleTest\\": "/tests"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
